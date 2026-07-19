@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet data-dc-atomics>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<x-import component-from-global-scope="image-slot" from="./image-slot.js" hint-size="1,1"></x-import>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;-webkit-font-smoothing:antialiased}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (pointer:fine){ .tt-cursor{display:block} }
+  .tt-nav-links{display:flex}
+  .tt-menu-btn{display:none}
+  @media (max-width:760px){
+    .tt-nav-links{display:none}
+    .tt-menu-btn{display:flex}
+    .tt-hero-title{font-size:clamp(48px,14vw,120px) !important}
+    .tt-work-grid{grid-template-columns:1fr !important}
+    .tt-services-row{flex-direction:column !important}
+  }
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" style="background:{{ colors.bg }};color:{{ colors.fg }};font-family:'IBM Plex Sans',sans-serif;min-height:100vh;overflow-x:hidden;position:relative">
+
+  <div style="{{ cursorStyle }}" class="tt-cursor"></div>
+
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,4vw,48px);backdrop-filter:blur(6px);background:{{ colors.bgTranslucent }}">
+    <img src="assets/logo.svg" alt="Tutto Torna" onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" onClick="{{ scrollTop }}" style="height:18px;width:auto;cursor:pointer" />
+    <nav class="tt-nav-links" style="gap:32px;align-items:center">
+      <a onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" onClick="{{ scrollToServices }}" style="color:{{ colors.fg }};text-decoration:none;font-size:14px;letter-spacing:0.02em;cursor:pointer">{{ texts.navServices }}</a>
+      <a onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" onClick="{{ scrollToContact }}" style="color:{{ colors.fg }};text-decoration:none;font-size:14px;letter-spacing:0.02em;cursor:pointer">{{ texts.navContact }}</a>
+      <div style="width:1px;height:16px;background:{{ colors.faint }}"></div>
+      <button onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" onClick="{{ setLangIt }}" style="{{ langBtnStyle.it }}">IT</button>
+      <button onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" onClick="{{ setLangEn }}" style="{{ langBtnStyle.en }}">EN</button>
+    </nav>
+    <button class="tt-menu-btn" onClick="{{ toggleMenu }}" style="align-items:center;gap:6px;background:none;border:1px solid {{ colors.faint }};border-radius:20px;padding:8px 14px;color:{{ colors.fg }};font-size:13px;cursor:pointer">
+      {{ menuLabel }}
+    </button>
+  </header>
+
+  <sc-if value="{{ menuOpen }}">
+    <div style="position:fixed;inset:0;z-index:60;background:{{ colors.bg }};display:flex;flex-direction:column;padding:24px clamp(20px,6vw,48px);gap:28px">
+      <div style="display:flex;justify-content:flex-end">
+        <button onClick="{{ toggleMenu }}" style="background:none;border:1px solid {{ colors.faint }};border-radius:20px;padding:8px 14px;color:{{ colors.fg }};font-size:13px;cursor:pointer">{{ texts.close }}</button>
+      </div>
+      <a onClick="{{ scrollToServices }}" style="color:{{ colors.fg }};text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:36px;cursor:pointer">{{ texts.navServices }}</a>
+      <a onClick="{{ scrollToContact }}" style="color:{{ colors.fg }};text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:36px;cursor:pointer">{{ texts.navContact }}</a>
+      <div style="display:flex;gap:16px;margin-top:12px">
+        <button onClick="{{ setLangIt }}" style="{{ langBtnStyle.it }}">IT</button>
+        <button onClick="{{ setLangEn }}" style="{{ langBtnStyle.en }}">EN</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <section style="padding:clamp(100px,20vh,200px) clamp(20px,4vw,48px) clamp(60px,10vh,100px);display:flex;flex-direction:column;gap:28px">
+    <img src="assets/logo-vert.svg" alt="Tutto Torna" style="width:auto;max-width:420px;height:auto" />
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-top:8px">
+      <p style="max-width:420px;margin:0;font-size:18px;line-height:1.5;color:{{ colors.muted }}">{{ texts.heroSub }}</p>
+      <button onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" onClick="{{ scrollToContact }}" style="display:flex;align-items:center;gap:10px;background:{{ colors.accent }};color:{{ colors.bg }};border:none;border-radius:30px;padding:16px 26px;font-size:15px;font-weight:500;cursor:pointer;font-family:'IBM Plex Sans',sans-serif">
+        {{ texts.heroCta }} →
+      </button>
+    </div>
+  </section>
+
+  <section id="tt-services" style="padding:clamp(60px,10vh,110px) clamp(20px,4vw,48px);border-top:1px solid {{ colors.faint }}">
+    <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:44px">
+      <span style="font-family:'Space Grotesk',sans-serif;color:{{ colors.accent }};font-size:14px">01</span>
+      <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,4vw,44px)">{{ texts.servicesHeading }}</h2>
+    </div>
+    <div>
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+        <div data-reveal-id="{{ s.id }}" style="{{ s.style }}" onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}">
+          <div class="tt-services-row" style="display:flex;align-items:center;gap:24px;padding:26px 0;border-bottom:1px solid {{ colors.faint }};cursor:pointer">
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:14px;color:{{ colors.muted }};width:32px;flex:none">{{ s.index }}</span>
+            <h3 style="margin:0;flex:1;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:clamp(22px,3vw,34px)">{{ s.title }}</h3>
+            <span style="font-size:14px;color:{{ colors.muted }};max-width:260px;text-align:right">{{ s.desc }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="tt-contact" style="padding:clamp(80px,14vh,160px) clamp(20px,4vw,48px);border-top:1px solid {{ colors.faint }};display:flex;flex-direction:column;gap:40px">
+    <div style="display:flex;align-items:baseline;gap:16px">
+      <span style="font-family:'Space Grotesk',sans-serif;color:{{ colors.accent }};font-size:14px">02</span>
+      <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,4vw,44px)">{{ texts.contactHeading }}</h2>
+    </div>
+    <a href="mailto:info@tuttotornastudio.it" onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" style="color:{{ colors.fg }};text-decoration:none;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:clamp(32px,7vw,84px);letter-spacing:-0.02em;word-break:break-word">info@tuttotornastudio.it</a>
+    <p style="max-width:460px;margin:0;color:{{ colors.muted }};font-size:16px;line-height:1.5">{{ texts.contactSub }}</p>
+    <div style="display:flex;gap:28px;flex-wrap:wrap;margin-top:8px">
+      <a href="https://www.instagram.com/tuttotornastudio/" target="_blank" rel="noopener" onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" style="color:{{ colors.fg }};text-decoration:none;font-size:14px;border-bottom:1px solid {{ colors.faint }};padding-bottom:2px">Instagram</a>
+      <a href="#" onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" style="color:{{ colors.fg }};text-decoration:none;font-size:14px;border-bottom:1px solid {{ colors.faint }};padding-bottom:2px">LinkedIn</a>
+    </div>
+  </section>
+
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;oklch(0.4 0.005 90)&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;oklch(0.4 0.005 90)&quot;,&quot;oklch(0.3 0.003 90)&quot;,&quot;oklch(0.55 0.005 90)&quot;]},&quot;showCustomCursor&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;it&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;it&quot;,&quot;en&quot;]}}">
+
+const COPY = {
+  it: {
+    navServices: 'Servizi', navContact: 'Contatti', close: 'Chiudi',
+    heroTitle1: 'Tutto', heroTitle2: 'torna.',
+    heroSub: "Studio creativo indipendente. Costruiamo identità, immagini in movimento e prodotti digitali con la stessa cura, dall'idea al dettaglio.",
+    heroCta: 'Iniziamo un progetto',
+    workHeading: 'Lavori selezionati',
+    servicesHeading: 'Cosa facciamo',
+    contactHeading: 'Parliamone',
+    contactSub: "Un'idea, un brief, o solo una domanda: rispondiamo sempre entro 24 ore.",
+    footerLine: 'Milano — disponibili per nuovi progetti',
+  },
+  en: {
+    navServices: 'Services', navContact: 'Contact', close: 'Close',
+    heroTitle1: 'It all', heroTitle2: 'adds up.',
+    heroSub: 'An independent creative studio. We build identities, moving images and digital products with the same care, from idea to detail.',
+    heroCta: 'Start a project',
+    workHeading: 'Selected work',
+    servicesHeading: 'What we do',
+    contactHeading: "Let's talk",
+    contactSub: 'An idea, a brief, or just a question: we always reply within 24 hours.',
+    footerLine: 'Milan — available for new projects',
+  }
+};
+
+const SERVICES = {
+  it: [
+    { title: 'Branding & Identità', desc: 'Naming, logo, sistemi visivi' },
+    { title: 'Motion Design', desc: 'Animazione, video, contenuti' },
+    { title: 'Web Design & Sviluppo', desc: 'Siti, prodotti, prototipi' },
+    { title: 'Direzione Creativa', desc: 'Strategia, art direction' },
+  ],
+  en: [
+    { title: 'Branding & Identity', desc: 'Naming, logo, visual systems' },
+    { title: 'Motion Design', desc: 'Animation, video, content' },
+    { title: 'Web Design & Development', desc: 'Sites, products, prototypes' },
+    { title: 'Creative Direction', desc: 'Strategy, art direction' },
+  ]
+};
+
+class Component extends DCLogic {
+  state = { lang: this.props.defaultLang ?? 'it', menuOpen: false, cursor: { x: -100, y: -100, visible: false, hover: false }, revealed: {}, hoverService: null };
+
+  componentDidMount() {
+    this._onMove = (e) => this.setState((s) => ({ cursor: { ...s.cursor, x: e.clientX, y: e.clientY, visible: true } }));
+    window.addEventListener('mousemove', this._onMove);
+    this._observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('data-reveal-id');
+          this.setState((s) => ({ revealed: { ...s.revealed, [id]: true } }));
+          this._observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    if (this._root) {
+      this._root.querySelectorAll('[data-reveal-id]').forEach((el) => this._observer.observe(el));
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this._onMove);
+    if (this._observer) this._observer.disconnect();
+  }
+
+  scrollToSection(id) {
+    this.setState({ menuOpen: false });
+    if (!this._root) return;
+    const el = this._root.querySelector(id);
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+  }
+
+  revealStyle(id, delay) {
+    const revealed = !!this.state.revealed[id];
+    return {
+      opacity: revealed ? 1 : 0,
+      transform: revealed ? 'translateY(0)' : 'translateY(28px)',
+      transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
+    };
+  }
+
+  renderVals() {
+    const accent = this.props.accentColor ?? 'oklch(0.4 0.005 90)';
+    const showCursor = this.props.showCustomCursor ?? true;
+    const colors = {
+      bg: 'oklch(0.8 0.003 90)',
+      bgTranslucent: 'oklch(0.8 0.003 90 / 0.75)',
+      fg: '#2b2b28',
+      muted: 'oklch(0.45 0.003 90)',
+      faint: 'oklch(0.78 0.003 90)',
+      accent,
+    };
+    const lang = this.state.lang;
+    const texts = COPY[lang];
+    const cur = this.state.cursor;
+    const size = 16;
+    const services = SERVICES[lang].map((s, i) => {
+      const id = 'service-' + i;
+      return {
+        id,
+        index: '0' + (i + 1),
+        title: s.title,
+        desc: s.desc,
+        style: this.revealStyle(id, i * 0.06),
+      };
+    });
+    const activeBtn = { background: colors.fg, color: colors.bg, border: 'none', borderRadius: '20px', padding: '5px 12px', fontSize: '12px', cursor: 'pointer' };
+    const inactiveBtn = { background: 'none', color: colors.muted, border: `1px solid ${colors.faint}`, borderRadius: '20px', padding: '5px 12px', fontSize: '12px', cursor: 'pointer' };
+    return {
+      rootRef: (el) => { this._root = el; },
+      colors,
+      texts,
+      services,
+      year: 2026,
+      menuOpen: this.state.menuOpen,
+      menuLabel: this.state.menuOpen ? texts.close : 'Menu',
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      setLangIt: () => this.setState({ lang: 'it' }),
+      setLangEn: () => this.setState({ lang: 'en' }),
+      langBtnStyle: { it: lang === 'it' ? activeBtn : inactiveBtn, en: lang === 'en' ? activeBtn : inactiveBtn },
+      scrollToServices: () => this.scrollToSection('#tt-services'),
+      scrollToContact: () => this.scrollToSection('#tt-contact'),
+      scrollTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+      hoverOn: () => this.setState((s) => ({ cursor: { ...s.cursor, hover: true } })),
+      hoverOff: () => this.setState((s) => ({ cursor: { ...s.cursor, hover: false } })),
+      cursorStyle: {
+        display: showCursor ? undefined : 'none',
+        position: 'fixed',
+        left: cur.x - size / 2,
+        top: cur.y - size / 2,
+        width: size,
+        height: size,
+        borderRadius: '50%',
+        background: '#2b2b28',
+        pointerEvents: 'none',
+        zIndex: 999,
+        mixBlendMode: 'difference',
+        opacity: cur.visible ? 1 : 0,
+        transition: 'opacity 0.2s ease',
+      },
+    };
+  }
+}
+
+</script>
+</body>
+</html>
