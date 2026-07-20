@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @font-face { font-family: 'JetBrains Mono'; src: local('JetBrains Mono'); }
+    html { overflow-y: scroll; }
+    body { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { opacity: 0.6; }
+    ::selection { background: #111; color: #f4f4f4; }
+    @keyframes scrollStrip { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet">
+</helmet>
+<div style="min-height:100vh; width:100%; background:{{ bg }}; color:{{ fg }}; font-family:'JetBrains Mono', monospace; display:flex; flex-direction:column; box-sizing:border-box; padding:clamp(16px,3vw,32px); position:relative; transition:background 0.5s ease, color 0.5s ease;">
+
+  <header style="display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:space-between; align-items:center; height:clamp(24px,3vw,34px); padding-bottom:clamp(16px,3vw,32px);">
+    <div style="font-size:clamp(11px,1.1vw,14px); letter-spacing:0.02em;">{{ clock }}</div>
+    <nav style="display:flex; gap:clamp(16px,2vw,32px); font-size:clamp(11px,1.1vw,14px); letter-spacing:0.02em;">
+      <a href="./Homepage.dc.html">Home ↗</a>
+    </nav>
+    <div style="display:flex; gap:16px; font-size:clamp(11px,1.1vw,14px); letter-spacing:0.02em;">
+      <a href="https://instagram.com/tuttotornastudio" target="_blank" rel="noopener">IG</a>
+      <a href="mailto:info@tuttotornastudio.it">MAIL</a>
+    </div>
+  </header>
+
+  <div style="margin-top:clamp(24px,4vw,48px);">
+    <svg onClick="{{ cyclePalette }}" viewBox="0 0 883.77 519.62" style="width:clamp(180px,22vw,300px); height:auto; color:{{ fg }}; display:block; cursor:pointer;" aria-label="Tutto Torna Studio" role="img">
+      <path fill="currentColor" d="M88.28,103v80.92c0,4.07,3.31,7.36,7.36,7.36h44.14v44.14h-44.14c-28.44,0-51.5-23.06-51.5-51.5v-80.92H0v-44.14h44.14V0h44.14v58.86h51.5v44.14h-51.5Z"></path>
+      <path fill="currentColor" d="M216.95,150.83c0,24.38,19.76,44.14,44.14,44.14s44.14-19.76,44.14-44.14V58.87h44.14v91.96c0,48.76-39.52,88.28-88.28,88.28s-88.28-39.52-88.28-88.28V58.87h44.14v91.96Z"></path>
+      <path fill="currentColor" d="M463.1,103v80.92c0,4.07,3.31,7.36,7.36,7.36h44.14v44.14h-44.14c-28.44,0-51.5-23.06-51.5-51.5v-80.92h-44.14v-44.14h44.14V0h44.14v58.86h51.5v44.14h-51.5Z"></path>
+      <path fill="currentColor" d="M626.18,103v80.92c0,4.07,3.31,7.36,7.36,7.36h44.14v44.14h-44.14c-28.44,0-51.5-23.06-51.5-51.5v-80.92h-44.14v-44.14h44.14V0h44.14v58.86h51.5v44.14h-51.5Z"></path>
+      <path fill="currentColor" d="M883.77,147.14c0,50.79-41.16,91.96-91.96,91.96s-91.96-41.17-91.96-91.96,41.16-91.96,91.96-91.96,91.96,41.17,91.96,91.96ZM839.62,147.14c0-26.41-21.41-47.82-47.82-47.82s-47.82,21.41-47.82,47.82,21.41,47.82,47.82,47.82,47.82-21.41,47.82-47.82Z"></path>
+      <path fill="currentColor" d="M88.28,383.52v80.92c0,4.07,3.31,7.36,7.36,7.36h44.14v44.14h-44.14c-28.44,0-51.5-23.06-51.5-51.5v-80.92H0v-44.14h44.14v-58.86h44.14v58.86h51.5v44.14h-51.5Z"></path>
+      <path fill="currentColor" d="M336.32,427.66c0,50.79-41.16,91.96-91.96,91.96s-91.96-41.17-91.96-91.96,41.16-91.96,91.96-91.96,91.96,41.17,91.96,91.96ZM292.18,427.66c0-26.41-21.41-47.82-47.82-47.82s-47.82,21.41-47.82,47.82,21.41,47.82,47.82,47.82,47.82-21.41,47.82-47.82Z"></path>
+      <path fill="currentColor" d="M478.55,339.38v44.14h-36.79c-24.39,0-44.14,19.76-44.14,44.14v88.28h-44.14v-88.28c0-48.76,39.54-88.28,88.28-88.28h36.79Z"></path>
+      <path fill="currentColor" d="M631.57,423.93c0-24.38-19.76-44.14-44.14-44.14s-44.14,19.76-44.14,44.14v91.96h-44.14v-91.96c0-48.76,39.52-88.28,88.28-88.28s88.28,39.52,88.28,88.28v91.96h-44.14v-91.96Z"></path>
+      <path fill="currentColor" d="M880.4,427.66v88.28h-44.14v-9.72c-13.93,8.5-30.3,13.4-47.82,13.4-50.79,0-91.96-41.17-91.96-91.96s41.17-91.96,91.96-91.96,91.96,41.17,91.96,91.96ZM836.26,427.66c0-26.41-21.41-47.82-47.82-47.82s-47.82,21.41-47.82,47.82,21.41,47.82,47.82,47.82,47.82-21.41,47.82-47.82Z"></path>
+    </svg>
+  </div>
+
+  <p style="font-size:clamp(24px,3.4vw,48px); line-height:1.25; font-weight:300; max-width:1100px; margin:clamp(32px,5vw,64px) 0;">{{ t.intro }}</p>
+
+  <div style="flex:1;"></div>
+
+  <div style="width:100vw; margin-left:calc(50% - 50vw); overflow:hidden; padding:clamp(14px,2vw,20px) 0; margin-bottom:clamp(16px,3vw,32px); background:{{ fg }}; color:{{ bg }};">
+    <div style="display:flex; gap:clamp(32px,5vw,64px); width:max-content; animation:scrollStrip 30s linear infinite; font-size:clamp(13px,1.4vw,20px); letter-spacing:0.02em; white-space:nowrap; padding-left:clamp(16px,3vw,32px);">
+      <span>{{ t.s1 }}</span><span>|</span><span>{{ t.s2 }}</span><span>|</span><span>{{ t.s3 }}</span><span>|</span><span>{{ t.s4 }}</span><span>|</span>
+      <span>{{ t.s1 }}</span><span>|</span><span>{{ t.s2 }}</span><span>|</span><span>{{ t.s3 }}</span><span>|</span><span>{{ t.s4 }}</span><span>|</span>
+      <span>{{ t.s1 }}</span><span>|</span><span>{{ t.s2 }}</span><span>|</span><span>{{ t.s3 }}</span><span>|</span><span>{{ t.s4 }}</span><span>|</span>
+    </div>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; width:100%; padding-top:clamp(12px,2vw,20px); font-size:clamp(11px,1.1vw,14px); letter-spacing:0.02em;">
+    <div>Tutto Torna Studio</div>
+    <div>2026</div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { time: new Date(), paletteIdx: 0, lang: 'it' };
+
+  palettes = [
+    { bg: 'oklch(0.97 0 0)', fg: 'oklch(0.22 0 0)', stripe: 'oklch(0.94 0 0)' },
+    { bg: 'oklch(0.22 0 0)', fg: 'oklch(0.97 0 0)', stripe: 'oklch(0.32 0 0)' },
+    { bg: '#f89b29', fg: '#ff0f7b', stripe: '#ffb457' },
+    { bg: '#42047e', fg: '#07f49e', stripe: '#5a1a94' },
+    { bg: '#696eff', fg: '#f8acff', stripe: '#8388ff' },
+    { bg: '#ebf4f5', fg: '#b5c6e0', stripe: '#dbe9ea' }
+  ];
+
+  translations = {
+    it: { moodboard: 'moodboard studio — da inserire', intro: 'Siamo uno studio di brand e visual identity con sede a Torino. Costruiamo sistemi visivi coerenti, essenziali, pensati per durare — dove ogni segno torna, si ripete, si riconosce.', s1: 'DESIGN', s2: 'BRANDING', s3: 'COMUNICAZIONE', s4: 'STRATEGY' },
+    en: { moodboard: 'studio moodboard — to be added', intro: 'We are a brand and visual identity studio based in Turin. We build visual systems that are coherent, essential, made to last — where every mark comes back, repeats, is recognised.', s1: 'DESIGN', s2: 'BRANDING', s3: 'COMMUNICATION', s4: 'STRATEGY' }
+  };
+
+  componentDidMount() {
+    this._tick = setInterval(() => this.setState({ time: new Date() }), 1000);
+    this.setState({
+      paletteIdx: parseInt(localStorage.getItem('ttsPaletteIdx'), 10) || 0,
+      lang: localStorage.getItem('ttsLang') === 'en' ? 'en' : 'it'
+    });
+  }
+  componentWillUnmount() {
+    clearInterval(this._tick);
+  }
+
+  cyclePalette = () => {
+    this.setState(s => {
+      const paletteIdx = (s.paletteIdx + 1) % this.palettes.length;
+      localStorage.setItem('ttsPaletteIdx', String(paletteIdx));
+      return { paletteIdx };
+    });
+  };
+
+  formatClock(d, lang) {
+    const daysIt = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+    const daysEn = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const pad = n => String(n).padStart(2, '0');
+    const day = (lang === 'en' ? daysEn : daysIt)[d.getDay()];
+    const date = lang === 'en'
+      ? `${pad(d.getMonth() + 1)}.${pad(d.getDate())}`
+      : `${pad(d.getDate())}.${pad(d.getMonth() + 1)}`;
+    return `${day}, ${date} — ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+
+  renderVals() {
+    const { bg, fg, stripe } = this.palettes[this.state.paletteIdx];
+    return {
+      clock: this.formatClock(this.state.time, this.state.lang),
+      bg,
+      fg,
+      stripeColor: stripe,
+      cyclePalette: this.cyclePalette,
+      t: this.translations[this.state.lang]
+    };
+  }
+}
+
+</script>
+</body>
+</html>
